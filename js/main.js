@@ -4,8 +4,8 @@ class Bird {
     constructor() {
         this.positionX = 12;
         this.positionY = 50;
-        this.width = 5;
-        this.height = 5;
+        this.width = 4;
+        this.height = 4;
         
         this.birdId = document.getElementById("bird");
         this.birdId.style.left = this.positionX + "vw";
@@ -17,21 +17,12 @@ class Bird {
         this.positionY = this.positionY + 1;
         this.birdId.style.bottom = this.positionY + "vh";
         console.log(this.positionY);
-    }
+    }    
     movedDown() {
         this.positionY = this.positionY - 1;
         this.birdId.style.bottom = this.positionY + "vh";
         console.log(this.positionY);
-    }
-    moveLeft() {
-        this.positionX = this.positionX - 1;
-        this.birdId.style.left = this.positionX + "vw";
-    }
-    moveRight() {
-        this.positionX = this.positionX + 1;
-        this.birdId.style.left = this.positionX + "vw";
-    }
-    
+}
 }
 
 const bird = new Bird();
@@ -57,13 +48,16 @@ function gravity(){
         //The answer to this is yes based on GPT, need to create a timestamp 
         // Then a clear interval would need to be set which removes the additional gravity pull after the user again presses the space bar.
     }, 20);
-}
+}      
+
+
+    
 
 //
 
 document.addEventListener("keydown", (e) => {
     if (e.code === "Space") {
-        // This is where thhe conditional start of gameplay statement should go
+        // This is where the conditional start of gameplay statement should go
         fluidFly();
         console.log("it works!");
     }

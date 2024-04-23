@@ -1,5 +1,5 @@
 body {
-    background-color: lightblue;
+    background-color: lightgreen;
     display: block;
     margin: 0;
     padding: 0;
@@ -9,24 +9,39 @@ h1 {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     display: flex;
     justify-content: center;
+
+}
+
+.instructionsText {
+    display: flex;
+    justify-content: center;
+    font-size: large;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
 #board {
     width: 90vw;
     height: 80vh;
     border: 1px solid black;
-    background-color: aquamarine;
     position: relative;
-    
+    overflow: hidden;
 }
 
-/*
-Remeber to hide the overflow once testing is finished.
-*/
+img {
+    width: 100%;
+    height: 100%;
+}
+
+#flappyPhoto {
+    width: 100%;
+    height: 100%
+}
+
 
 #bird {
     position:absolute;
     background-color: red;
+    border-radius: 50%;
 }
 
 .topObstacle {

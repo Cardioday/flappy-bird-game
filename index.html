@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div class="instructionsText">Press the Spacebar to move!</div>
     <title>Flappy Bird</title>
+    
     <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
@@ -11,8 +13,11 @@
     
     <div id = "board">
         <div class="topObstacle"></div>
-        <div id="bird">Bird</div>
+        <div id="bird">
+            <img id="flappyPhoto" src="./flappybird.png" alt="Flappy not happy">
+        </div>
         <div class="bottomObstacle"></div>
+        <img id="backgroundPhoto" src="./flappybirdbg.png" alt="Flappy not happy">
     </div>
 
     <script src="./js/obstacles.js"></script>
