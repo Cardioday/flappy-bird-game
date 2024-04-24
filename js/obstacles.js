@@ -99,7 +99,7 @@ function newCeilingInterval() {
     },1500)
 }
 
-
+newCeilingInterval();
 
 
 
@@ -149,6 +149,8 @@ function newFloorInterval() {
         genNewFloor();
     },1500)
 }
+
+newFloorInterval();
 
 
 //Need a function to randomly generate heights of said obstacles

@@ -50,6 +50,8 @@ function gravity(){
     }, 20);
 }      
 
+gravity();
+
 
     
 
