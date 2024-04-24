@@ -24,7 +24,7 @@ h1 {
     height: 80vh;
     border: 1px solid black;
     position: relative;
-    overflow: hidden;
+    overflow: hidden;  
 }
 
 img {
@@ -33,23 +33,8 @@ img {
 }
 
 #flappyPhoto {
-    width: 100%;
-    height: 100%
+    width: 110%;
+    height: 110%
 }
 
 
-#bird {
-    position:absolute;
-    background-color: red;
-    border-radius: 50%;
-}
-
-.topObstacle {
-    position:absolute;
-    background-color: blueviolet;
-}
-
-.bottomObstacle {
-    position:absolute;
-    background-color: blue;
-}

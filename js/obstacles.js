@@ -1,163 +1,99 @@
 
-//Ceiling obstacle (pipe)
-class CeilingObs {
-    constructor() {
+//Pipe obstacle
+class Pipe {
+    constructor(typeOfPipe) {
         this.positionX = 90;
-        this.positionY = 45;
+        this.positionY = 0;
         this.width = 6;
-        this.height = 50;
+        this.image = typeOfPipe === "top" ? "./toppipe.png" : "./bottompipe.png";
+
+
+        this.createDomDiv();
+        this.createDomImg();   
+    }
+    createDomDiv() {
+        //create Element
+        this.pipeDiv = document.createElement("div");
+
+        //add context and modify the styling
+        this.pipeDiv.style.left = this.positionX + "vw";
+        this.pipeDiv.style.bottom = this.positionY; //this.positionY + "vh";
+        this.pipeDiv.style.width = this.width + "vw";
+        this.pipeDiv.style.height = this.height + "vh";
+        this.pipeDiv.style.position = "absolute";
+        this.pipeDiv.setAttribute("class", "obstacle")
+
+        // append to the DOM 
+        const parent = document.querySelector("#board");
+        parent.appendChild(this.pipeDiv);
+
+    }
+
+    createDomImg() {
+        //create Element
+        this.pipeImg = document.createElement("img");
+
+        //add context and modify the styling
+        this.pipeImg.src = this.image;
+        this.pipeImg.alt = "Flappy not happy";
+        this.pipeImg.setAttribute("class", "obstaclePhoto");
+
+        // append to the DOM
+        this.pipeDiv.appendChild(this.pipeImg);
+    }
+
+    moveLeft() {
+        this.positionX = this.positionX - .1;
+        this.pipeDiv.style.left = this.positionX + "vw";
+    }
+}
+
+/////
+//Obstacle Array//
+/////
+
+function startObstacles() {
+    const pipeArray = [];
+
+    //Generate obstacles
+    setInterval(() => {
+        const pT = new Pipe("top");
+        const pB = new Pipe("bottom");
+
+        //This sets the range of the top pipe (top pipe max y location - min y location + 1) + min Y location);
+        const randomPosition = Math.floor(Math.random() * (70 - 30 + 1) + 30);
+
+        pT.pipeDiv.style.bottom = randomPosition + "vh";
+        //This sets the gap between obstacles generated (random position - pipe height - gap between pipes)
+        pB.pipeDiv.style.bottom = (randomPosition - 64 - 30) + "vh";
+
         
-        this.ceilingId = document.querySelector(".topObstacle");
-        this.ceilingId.style.left = this.positionX + "vw";
-        this.ceilingId.style.bottom = this.positionY + "vh";
-        this.ceilingId.style.width = this.width + "vw";
-        this.ceilingId.style.height = this.height + "vh";
+        pipeArray.push(pT, pB);
+        // pipeArray.push(pB);
+    }, 1000)
 
-        this.ceilingId.style.position = "absolute";
-        this.ceilingId.style.backgroundColor = "red"
-       
-    }        
+    //Move all obstacles
+    setInterval(() => {
+        pipeArray.forEach((instance) => {
+            //move obstacle
+            instance.moveLeft();
+
+            //detect collision
+            if (
+                bird.positionX < instance.positionX + instance.width &&
+                bird.positionX + bird.width > instance.positionX &&
+                bird.positionY < instance.positionY + instance.height &&
+                bird.positionY + bird.height > instance.positionY
+            ) {
+                // gameOver();
+            }
+        }, 5000)
+    })
 }
 
-//Floor obstacle (pipe)
 
-class FloorObs {
-    constructor() {
-        this.positionX = 90;
-        this.positionY = -10;
-        this.width = 6;
-        this.height =50;
-        
-        this.floorId = document.querySelector(".bottomObstacle");
-        this.floorId.style.left = this.positionX + "vw";
-        this.floorId.style.bottom = this.positionY + "vh";
-        this.floorId.style.width = this.width + "vw";
-        this.floorId.style.height = this.height + "vh";
-
-        this.floorId.style.position = "absolute";
-        this.floorId.style.backgroundColor = "purple"
-
-    }  
+//Universal function to end the game when certain criteria are met.
+function gameOver() {
+    console.log("collision detected")
+    location.href = "gameover.html";
 }
-
-/*Both of these will need to be set with their own interval timers which executes the following:
--Move the respective obstacles left at a constant pace to imitate motion
--Generates a new obstacle at a constant gap rate from the last
--Generates random sizes (heights) that do not intersect or come too close to one another 
-*/
-
-//New instances to be able to reference outside of the class
-const floorObs = new FloorObs();
-const ceilingObs = new CeilingObs();
-
-//Reference to the board element
-const spot = document.querySelector("#board");
-
-/*///////////////////////////
-TOP PIPE
-*///////////////////////////
-//Placeholder variable for scoping
-
-let newDivTop;
-
-//Generates a new ceiling obstacle on a set interval
-
-function genNewCeiling() {
-    let newDivTop = document.createElement("div");
-    let topImg = document.createElement("img")
-    topImg.src = "./toppipe.png";
-    topImg.alt = "Flappy not happy";
-
-    newDivTop.classList.add("copyTopObstacle");
-    newDivTop.style.left = ceilingObs.positionX + "vw";
-    newDivTop.style.bottom = ceilingObs.positionY + "vh";
-    newDivTop.style.width = ceilingObs.width + "vw";
-    newDivTop.style.height = ceilingObs.height + "vh";
-
-    newDivTop.style.position = ceilingObs.ceilingId.style.position;
-    newDivTop.style.backgroundColor = "black";
-
-//adding class list for testing purposes, will insert graphic later
-
-    spot.appendChild(newDivTop);
-    newDivTop.appendChild(topImg);
-
-    const movementInterval = setInterval(() => {
-        const location = parseFloat(newDivTop.style.left)
-        if(location > 0){
-            newDivTop.style.left = location - 1 + "vw";
-        } else {
-            newDivTop.remove(); 
-        }
-    }, 60)
-}
-//Invoke Top Obstacle generation function genNewCeiling() based upon interval timer
-
-function newCeilingInterval() {
-    const interval = setInterval(()=>{
-        genNewCeiling();
-    },1500)
-}
-
-newCeilingInterval();
-
-
-
-
-
-/*///////////////////////////
-BOTTOM PIPE
-*///////////////////////////
-
-let newDivBot;
-
-//Generates a new ceiling obstacle on a set interval
-function genNewFloor(){ 
-    let newDivBot = document.createElement("div");
-    let botImg = document.createElement("img")
-    botImg.src = "./bottompipe.png";
-    botImg.alt = "Flappy not happy";
-
-    newDivBot.classList.add("copybottomObstacle");
-    newDivBot.style.left = floorObs.positionX + "vw";
-    newDivBot.style.bottom = floorObs.positionY + "vh";
-    newDivBot.style.width = floorObs.width + "vw";
-    newDivBot.style.height = floorObs.height + "vh";
-
-    newDivBot.style.position = floorObs.floorId.style.position;
-    newDivBot.style.backgroundColor = "yellow";
-   
-     //adding class list for testing purposes, will insert graphic later
-
-     spot.appendChild(newDivBot);
-     newDivBot.appendChild(botImg);
-       
-     const movementInterval = setInterval(() => {
-        const location = parseFloat(newDivBot.style.left)
-        if(location > 0){
-            newDivBot.style.left = location - 1 + "vw";
-        } else {
-            newDivBot.remove(); 
-        }
-    }, 60)
-
-}
-
-//Invoke Bottom Obstacle generation function genNewFloor() based upon interval timer
-function newFloorInterval() {
-    const interval = setInterval(()=>{
-        genNewFloor();
-    },1500)
-}
-
-newFloorInterval();
-
-
-//Need a function to randomly generate heights of said obstacles
-
-//////////////////////
-// COLLISION DETECTION
-//////////////////////
-
-//////////////////////
-//C
