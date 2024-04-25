@@ -10,14 +10,23 @@
     </link>
 </head>
 
-<body>
+<body id="gameoverBody">
 
-    <h1>Game Over</h1>
-    <h2>Final Score:</h2>
-    <h3>Try again? </h3>
 
+    <div class="gameoverHeaders">
+        <h1 id="gameoverTitle">Game Over</h1>
+        <h2 id="scoreDisplay">Final Score:</h2>
+        <a href="./index.html" id="playAgain">Play again </a>
+    </div>
+    <img class="GObackgroundPhoto" src="./pics/flappybirdbg.png" alt="Flappy not happy">
+
+
+    
     <script src="./js/obstacles.js"></script>
     <script src="./js/main.js"></script>
+    <script>
+        displayFinalScore();
+    </script>
 </body>
 
 </html>

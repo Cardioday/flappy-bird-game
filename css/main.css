@@ -5,11 +5,9 @@ body {
     padding: 0;
 }
 
-h1 {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-
+img {
+    width: 100%;
+    height: 100%;
 }
 
 .instructionsText {
@@ -17,6 +15,13 @@ h1 {
     justify-content: center;
     font-size: large;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+#title {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+
 }
 
 #board {
@@ -27,14 +32,58 @@ h1 {
     overflow: hidden;  
 }
 
-img {
-    width: 100%;
-    height: 100%;
-}
-
 #flappyPhoto {
     width: 110%;
     height: 110%
+}
+
+#resultsContainer {
+    position: absolute;
+    font-size: larger;
+    font-family:Arial, Helvetica, sans-serif
+}
+
+/*/////////////
+GAMEOVER
+//////////////*/
+
+.gameoverHeaders {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    z-index: 4;
+    padding-top: 20vh;
+    
+}
+
+.GObackgroundPhoto {
+    height: 100vh;
+    width: 100vw;
+    position:absolute;
+}
+
+#gameoverBody {
+    display: flex;
+    flex-direction: column;
+
+}
+
+#gameoverTitle {
+    text-transform: uppercase;
+    font-size: 400%;
+    margin-bottom: 2vh;
+      
+}
+
+#playAgain {
+    font-size: x-large;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding-top: 3vh;
+}
+
+#scoreDisplay { 
+    font-size: 200%;
 }
 
 

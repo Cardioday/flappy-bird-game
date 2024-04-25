@@ -1,15 +1,17 @@
 
 //Pipe obstacle
 class Pipe {
-    constructor(typeOfPipe) {
+    constructor(typeOfPipe, positionY) {
         this.positionX = 90;
-        this.positionY = 0;
+        this.positionY = positionY;
         this.width = 6;
-        this.image = typeOfPipe === "top" ? "./toppipe.png" : "./bottompipe.png";
+        this.height = 64;
+        this.typeOfPipe = typeOfPipe;
+        this.image = this.typeOfPipe === "top" ? "./pics/toppipe.png" : "./pics/bottompipe.png";
 
 
         this.createDomDiv();
-        this.createDomImg();   
+        this.createDomImg();
     }
     createDomDiv() {
         //create Element
@@ -17,7 +19,8 @@ class Pipe {
 
         //add context and modify the styling
         this.pipeDiv.style.left = this.positionX + "vw";
-        this.pipeDiv.style.bottom = this.positionY; //this.positionY + "vh";
+        //By changing this you've altered the collision detection.
+        this.pipeDiv.style.bottom = this.positionY + "vh";
         this.pipeDiv.style.width = this.width + "vw";
         this.pipeDiv.style.height = this.height + "vh";
         this.pipeDiv.style.position = "absolute";
@@ -48,52 +51,51 @@ class Pipe {
     }
 }
 
-/////
+//////////////////
 //Obstacle Array//
-/////
+/////////////////
 
 function startObstacles() {
+
+    //holds all of the newly generated obstacle instances
     const pipeArray = [];
 
     //Generate obstacles
     setInterval(() => {
-        const pT = new Pipe("top");
-        const pB = new Pipe("bottom");
 
-        //This sets the range of the top pipe (top pipe max y location - min y location + 1) + min Y location);
-        const randomPosition = Math.floor(Math.random() * (70 - 30 + 1) + 30);
+        //creating random positioning references along the Y axis
+        const topPipeY = Math.floor(Math.random() * (70 - 35 + 1) + 35);
+        const bottomPipeY = (topPipeY - 64 - 18);
 
-        pT.pipeDiv.style.bottom = randomPosition + "vh";
-        //This sets the gap between obstacles generated (random position - pipe height - gap between pipes)
-        pB.pipeDiv.style.bottom = (randomPosition - 64 - 30) + "vh";
+        //creating new instances of pipe
+        const pT = new Pipe("top", topPipeY);
+        const pB = new Pipe("bottom", bottomPipeY);
 
-        
+        //Moving pipes to pipeArray
         pipeArray.push(pT, pB);
-        // pipeArray.push(pB);
-    }, 1000)
+
+    }, 1500)
 
     //Move all obstacles
     setInterval(() => {
+
         pipeArray.forEach((instance) => {
-            //move obstacle
+
+            //moves obstacle every 1.5 secs
             instance.moveLeft();
 
-            //detect collision
+            //detects collision between player and pipes
             if (
                 bird.positionX < instance.positionX + instance.width &&
                 bird.positionX + bird.width > instance.positionX &&
                 bird.positionY < instance.positionY + instance.height &&
                 bird.positionY + bird.height > instance.positionY
             ) {
-                // gameOver();
+                gameOver("yes");
             }
-        }, 5000)
+        }, 1500)
     })
 }
 
 
-//Universal function to end the game when certain criteria are met.
-function gameOver() {
-    console.log("collision detected")
-    location.href = "gameover.html";
-}
+
