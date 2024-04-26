@@ -106,18 +106,16 @@ function fluidFly() {
 //downward force effect on the bird while flying
 function gravity() {
 
-    let count = 0; //test
-    console.log(count);//test
+    let count = 0; 
+    console.log(count);
 
     const fall = setInterval((element) => {
 
-        count++; //test
+        count++;
 
         bird.movedDown();
 
-        // test
-
-        if (count >= 17) { //14
+        if (count >= 17) { 
 
             bird.movedDown();
             bird.movedDownGravity()
@@ -128,12 +126,10 @@ function gravity() {
                 }
             })
         }
-        //test end
-        //could add a conditional statement here intensifing the decrement interval if "space" code event listener hasn't been executed in XX amount of ms 
         if (bird.positionY < 1) {
             gameOver("yes");
         }
-    }, 25);//20
+    }, 25);
 }
 
 
