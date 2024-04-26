@@ -1,8 +1,8 @@
 class Bird {
     constructor() {
-        this.positionX = 12; 
-        this.positionY = 40; 
-        this.width = 4; 
+        this.positionX = 12;
+        this.positionY = 40;
+        this.width = 4;
         this.height = 4;
         this.parent = document.querySelector("#board");
 
@@ -46,6 +46,10 @@ class Bird {
         this.positionY = this.positionY - 1;
         this.birdId.style.bottom = this.positionY + "vh";
     }
+    movedDownGravity() {
+        this.positionY = this.positionY - .30;
+        this.birdId.style.bottom = this.positionY + "vh";
+    }
 }
 
 //generated instance of bird on board
@@ -58,7 +62,7 @@ const bird = new Bird();
 liftOff();
 //starts the game conditional on user key press
 function liftOff() {
-    let count = 0
+    let count = 0;
     document.addEventListener("keydown", (e) => {
         if (e.code === "Space") {
             count++;
@@ -92,7 +96,7 @@ function fluidFly() {
 
     setTimeout((element) => {
         clearInterval(jump);
-    }, 250) //250
+    }, 220) //250
 }
 
 ///////////
@@ -101,13 +105,35 @@ function fluidFly() {
 
 //downward force effect on the bird while flying
 function gravity() {
+
+    let count = 0; //test
+    console.log(count);//test
+
     const fall = setInterval((element) => {
+
+        count++; //test
+
         bird.movedDown();
+
+        // test
+
+        if (count >= 17) { //14
+
+            bird.movedDown();
+            bird.movedDownGravity()
+
+            document.addEventListener("keydown", (e) => {
+                if (e.code === "Space") {
+                    count = 0;
+                }
+            })
+        }
+        //test end
         //could add a conditional statement here intensifing the decrement interval if "space" code event listener hasn't been executed in XX amount of ms 
         if (bird.positionY < 1) {
             gameOver("yes");
         }
-    }, 20);
+    }, 25);//20
 }
 
 

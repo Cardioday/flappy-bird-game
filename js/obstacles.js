@@ -2,7 +2,7 @@
 //Pipe obstacle
 class Pipe {
     constructor(typeOfPipe, positionY) {
-        this.positionX = 90;
+        this.positionX = 95;
         this.positionY = positionY;
         this.width = 6;
         this.height = 64;
@@ -64,8 +64,8 @@ function startObstacles() {
     setInterval(() => {
 
         //creating random positioning references along the Y axis
-        const topPipeY = Math.floor(Math.random() * (70 - 35 + 1) + 35);
-        const bottomPipeY = (topPipeY - 64 - 18);
+        const topPipeY = Math.floor(Math.random() * (70 - 30 + 1) + 30);
+        const bottomPipeY = (topPipeY - 64 - 24);
 
         //creating new instances of pipe
         const pT = new Pipe("top", topPipeY);
@@ -74,7 +74,7 @@ function startObstacles() {
         //Moving pipes to pipeArray
         pipeArray.push(pT, pB);
 
-    }, 1500)
+    }, 1250)
 
     //Move all obstacles
     setInterval(() => {
@@ -93,7 +93,7 @@ function startObstacles() {
             ) {
                 gameOver("yes");
             }
-        }, 1500)
+        }, 1250)
     })
 }
 
